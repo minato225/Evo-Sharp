@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.4.33110.190
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Evo-Sharp", "Evo-Sharp\Evo-Sharp.csproj", "{53A598D5-4432-4106-8847-36583830A7C2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EvoSharp.Domain.UnitTests", "EvoSharp.Domain.UnitTests\EvoSharp.Domain.UnitTests.csproj", "{03B141D1-7D28-43CE-8E31-13D8E8014A98}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EvoSharp.Domain", "EnvoSharp.Domain\EvoSharp.Domain.csproj", "{7852D522-2EBB-433A-A6FC-361A0530B0CF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,10 +13,14 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{53A598D5-4432-4106-8847-36583830A7C2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{53A598D5-4432-4106-8847-36583830A7C2}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{53A598D5-4432-4106-8847-36583830A7C2}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{53A598D5-4432-4106-8847-36583830A7C2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{03B141D1-7D28-43CE-8E31-13D8E8014A98}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{03B141D1-7D28-43CE-8E31-13D8E8014A98}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{03B141D1-7D28-43CE-8E31-13D8E8014A98}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{03B141D1-7D28-43CE-8E31-13D8E8014A98}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7852D522-2EBB-433A-A6FC-361A0530B0CF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7852D522-2EBB-433A-A6FC-361A0530B0CF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7852D522-2EBB-433A-A6FC-361A0530B0CF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7852D522-2EBB-433A-A6FC-361A0530B0CF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
