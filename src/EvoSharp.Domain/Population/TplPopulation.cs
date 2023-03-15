@@ -15,17 +15,7 @@ public class TplPopulation<T> : Population<T>
         GenerationsNumber = 0;
 
         var chromosomes = new ConcurrentBag<IChromosome<T>>();
-        Parallel.For(0, MinSize, i =>
-        {
-            var c = AdamChromosome.CreateNew();
-
-            if (c == null)
-            {
-                throw new InvalidOperationException("The Adam chromosome's 'CreateNew' method generated a null chromosome. This is a invalid behavior, please, check your chromosome code.");
-            }
-
-            chromosomes.Add(c);
-        });
+        Parallel.For(0, MinSize, i => chromosomes.Add(FirstChromosome.CreateNew()));
 
         CreateNewGeneration(chromosomes.ToList());
     }

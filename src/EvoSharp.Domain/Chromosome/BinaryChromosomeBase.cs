@@ -6,10 +6,8 @@ public class BinaryChromosome : ChromosomeBase<bool>
         base(length)
     { }
 
-    public override IChromosome<bool> CreateNew()
-    {
-        throw new NotImplementedException();
-    }
+    public override IChromosome<bool> CreateNew() => 
+        new BinaryChromosome(_length);
 
     public virtual void FlipGene(int index) =>
         this[index] = !this[index];

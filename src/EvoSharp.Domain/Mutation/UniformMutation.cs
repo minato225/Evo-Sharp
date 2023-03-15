@@ -4,9 +4,10 @@ namespace EvoSharp.Domain.Mutation;
 
 public class UniformMutation : MutationBase
 {
-    private readonly int[] m_mutableGenesIndexes;
+    private readonly int[] _mutableGenesIndexes;
 
-    public UniformMutation(params int[] mutableGenesIndexes) => m_mutableGenesIndexes = mutableGenesIndexes;
+    public UniformMutation(params int[] mutableGenesIndexes) => 
+        _mutableGenesIndexes = mutableGenesIndexes;
 
     protected override void PerformMutate<T>(IChromosome<T> chromosome, float probability)
     {
@@ -14,7 +15,7 @@ public class UniformMutation : MutationBase
 
         var genesLength = chromosome.Length;
 
-        foreach (var geneIndex in m_mutableGenesIndexes)
+        foreach (var geneIndex in _mutableGenesIndexes)
         {
             if (geneIndex >= genesLength)
             {

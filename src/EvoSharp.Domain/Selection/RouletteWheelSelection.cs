@@ -33,18 +33,18 @@ public class RouletteWheelSelection<T> : SelectionBase<T>
     /// <param name="rouletteWheel">The roulette wheel.</param>
     protected static void CalculateCumulativePercentFitness(IList<IChromosome<T>> chromosomes, IList<double> rouletteWheel)
     {
-        var sumFitness = chromosomes.Sum(c => c.Fitness.Value);
+        var sumFitness = chromosomes.Sum(c => c.FitnessValue.Value);
 
         var cumulativePercent = 0.0;
 
         for (int i = 0; i < chromosomes.Count; i++)
         {
-            cumulativePercent += chromosomes[i].Fitness.Value / sumFitness;
+            cumulativePercent += chromosomes[i].FitnessValue.Value / sumFitness;
             rouletteWheel.Add(cumulativePercent);
         }
     }
 
-    protected override IList<IChromosome<T>> PerformSelectChromosomes(int number, Generation<T> generation)
+    protected override IList<IChromosome<T>> PerformSelection(int number, Generation<T> generation)
     {
         var chromosomes = generation.Chromosomes;
         var rouletteWheel = new List<double>();

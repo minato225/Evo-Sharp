@@ -44,9 +44,9 @@ public class RankSelection<T> : SelectionBase<T>
         }
     }
 
-    protected override IList<IChromosome<T>> PerformSelectChromosomes(int number, Generation<T> generation)
+    protected override IList<IChromosome<T>> PerformSelection(int number, Generation<T> generation)
     {
-        var chromosomes = generation.Chromosomes.OrderByDescending(c => c.Fitness).ToList();
+        var chromosomes = generation.Chromosomes.OrderByDescending(c => c.FitnessValue).ToList();
         var rankWheel = new List<double>();
 
         CalculateCumulativeFitnessRank(chromosomes, rankWheel);

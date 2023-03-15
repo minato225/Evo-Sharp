@@ -10,7 +10,7 @@ public class TournamentSelection<T> : SelectionBase<T>
 
     public int TrourSize { get; set; }
 
-    protected override IList<IChromosome<T>> PerformSelectChromosomes(int number, Generation<T> generation)
+    protected override IList<IChromosome<T>> PerformSelection(int number, Generation<T> generation)
     {
         if (TrourSize > generation.Chromosomes.Count)
         {
@@ -23,7 +23,7 @@ public class TournamentSelection<T> : SelectionBase<T>
         while (selected.Count < number)
         {
             var randomIndexes = RandomUtils.GetUniqueInts(TrourSize, 0, candidates.Count);
-            var tournamentWinner = candidates.Where((c, i) => randomIndexes.Contains(i)).OrderByDescending(c => c.Fitness).First();
+            var tournamentWinner = candidates.Where((c, i) => randomIndexes.Contains(i)).OrderByDescending(c => c.FitnessValue).First();
 
             selected.Add(tournamentWinner.Clone());
         }

@@ -4,13 +4,13 @@ namespace EvoSharp.Domain.Crossover;
 
 public class OnePointCrossover : CrossoverBase
 {
-    public OnePointCrossover(int swapPointIndex) : base(2, 2) => SwapPointIndex = swapPointIndex;
+    public OnePointCrossover(int swapPointIndex) : base(2, 2) => 
+        SwapPointIndex = swapPointIndex;
     public int SwapPointIndex { get; set; }
 
     protected override IList<IChromosome<T>> PerformCross<T>(IList<IChromosome<T>> parents)
     {
-        var firstParent = parents[0];
-        var secondParent = parents[1];
+        var (firstParent, secondParent) = (parents[0], parents[1]);
 
         if (SwapPointIndex >= firstParent.Length - 1)
         {

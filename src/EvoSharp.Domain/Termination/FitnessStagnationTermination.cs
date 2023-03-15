@@ -8,21 +8,21 @@
 /// </summary>
 public class FitnessStagnationTermination : TerminationBase
 {
-    private double m_lastFitness;
-    private int m_stagnantGenerationsCount;
+    private double _lastFitness;
+    private int _stagnantCount;
 
-    public FitnessStagnationTermination(int expectedStagnantGenerationsNumber) => ExpectedStagnantGenerationsNumber = expectedStagnantGenerationsNumber;
+    public FitnessStagnationTermination(int expectedStagnantGenerationsNumber) => ExpectedStagnantCount = expectedStagnantGenerationsNumber;
 
-    public int ExpectedStagnantGenerationsNumber { get; set; }
+    public int ExpectedStagnantCount { get; set; }
 
-    protected override bool PerformHasReached<T>(GeneticAlgorithm<T> geneticAlgorithm)
+    protected override bool PerformHasReached<T>(GeneticAlgorithm<T> ga)
     {
-        var bestFitness = geneticAlgorithm.Population.BestChromosome.Fitness.Value;
+        var bestFitness = ga.Population.BestChromosome.FitnessValue.Value;
 
-        m_stagnantGenerationsCount = m_lastFitness == bestFitness ? m_stagnantGenerationsCount + 1 : 1;
+        _stagnantCount = _lastFitness == bestFitness ? _stagnantCount + 1 : 1;
 
-        m_lastFitness = bestFitness;
+        _lastFitness = bestFitness;
 
-        return m_stagnantGenerationsCount >= ExpectedStagnantGenerationsNumber;
+        return _stagnantCount >= ExpectedStagnantCount;
     }
 }

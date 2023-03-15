@@ -2,17 +2,18 @@ namespace EvoSharp.Domain.Termination;
 
 public abstract class TerminationBase : ITermination
 {
-    private bool m_hasReached;
+    private bool _hasReached;
 
     public bool HasReached<T>(GeneticAlgorithm<T> geneticAlgorithm)
     {
         ArgumentNullException.ThrowIfNull(nameof(geneticAlgorithm));
 
-        m_hasReached = PerformHasReached(geneticAlgorithm);
+        _hasReached = PerformHasReached(geneticAlgorithm);
 
-        return m_hasReached;
+        return _hasReached;
     }
-    public override string ToString() => $"{GetType().Name} (HasReached: {m_hasReached})";
+    public override string ToString() => 
+        $"{GetType().Name} (HasReached: {_hasReached})";
 
     protected abstract bool PerformHasReached<T>(GeneticAlgorithm<T> geneticAlgorithm);
 }

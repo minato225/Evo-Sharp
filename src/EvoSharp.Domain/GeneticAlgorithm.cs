@@ -12,15 +12,6 @@ public enum GeneticAlgorithmState
 {
     NotStarted,
     Started,
-
-    /// <summary>
-    /// The GA has been resumed after a stop or termination reach and is running.
-    /// </summary>
-    Resumed,
-
-    /// <summary>
-    /// The GA has reach the termination condition and is not running.
-    /// </summary>
     TerminationReached
 }
 
@@ -81,54 +72,33 @@ public sealed class GeneticAlgorithm<T>
         _stopwatch.Stop();
         TotalTime = _stopwatch.Elapsed;
 
-        Resume();
+        if (Population.GenerationsNumber == 0)
+        {
+            throw new InvalidOperationException("Attempt to resume a genetic algorithm which was not yet started.");
+        }
+
+        if (Termination.HasReached(this))
+        {
+            throw new InvalidOperationException("Attempt to resume a genetic algorithm with a termination already reached. Please, specify a new termination or extend the current one.");
+        }
+
+        if (EndCurrentGeneration()) return;
+
+        bool terminationConditionReached;
+        do
+        {
+            _stopwatch.Restart();
+            terminationConditionReached = CalcOneGeneration();
+            _stopwatch.Stop();
+
+            TotalTime += _stopwatch.Elapsed;
+        }
+        while (!terminationConditionReached);
     }
 
-    /// <summary>
-    /// Resumes the last evolution of the genetic algorithm.
-    /// <remarks>
-    /// If genetic algorithm was not explicit Stop (calling Stop method), you will need provide a new extended Termination.
-    /// </remarks>
-    /// </summary>
-    public void Resume()
+    private bool CalcOneGeneration()
     {
-        try
-        {
-            if (Population.GenerationsNumber == 0)
-            {
-                throw new InvalidOperationException("Attempt to resume a genetic algorithm which was not yet started.");
-            }
-
-            if (Termination.HasReached(this))
-            {
-                throw new InvalidOperationException("Attempt to resume a genetic algorithm with a termination already reached. Please, specify a new termination or extend the current one.");
-            }
-
-            State = GeneticAlgorithmState.Resumed;
-
-            if (EndCurrentGeneration()) return;
-
-            bool terminationConditionReached = false;
-
-            do
-            {
-                _stopwatch.Restart();
-                terminationConditionReached = EvolveOneGeneration();
-                _stopwatch.Stop();
-
-                TotalTime += _stopwatch.Elapsed;
-            }
-            while (!terminationConditionReached);
-        }
-        catch
-        {
-            throw;
-        }
-    }
-
-    private bool EvolveOneGeneration()
-    {
-        var parents = SelectParents();
+        var parents = Select();
         var offspring = Cross(parents);
         Mutate(offspring);
 
@@ -138,7 +108,7 @@ public sealed class GeneticAlgorithm<T>
 
     private bool EndCurrentGeneration()
     {
-        EvaluateFitness();
+        GetFitness();
         Population.EndCurrentGeneration();
 
         GenerationRan?.Invoke(this, EventArgs.Empty);
@@ -155,43 +125,37 @@ public sealed class GeneticAlgorithm<T>
         return false;
     }
 
-    private void EvaluateFitness()
+    private void GetFitness()
     {
-        var chromosomesWithoutFitness = Population.CurrentGeneration.Chromosomes.Where(c => !c.Fitness.HasValue).ToList();
+        var chromosomesWithoutFitness = Population.CurrentGeneration.Chromosomes.Where(c => !c.FitnessValue.HasValue).ToList();
 
-        foreach (var c in chromosomesWithoutFitness)
+        foreach (var chromosome in chromosomesWithoutFitness)
         {
-            RunEvaluateFitness(c);
+            try
+            {
+                chromosome.FitnessValue = Fitness.Invoke(chromosome);
+            }
+            catch (Exception ex)
+            {
+                throw new ArgumentNullException($"Error executing Fitness.Evaluate for chromosome: {ex.Message}");
+            }
         }
 
-        Population.CurrentGeneration.Chromosomes = Population.CurrentGeneration.Chromosomes.OrderByDescending(c => c.Fitness.Value).ToList();
+        Population.CurrentGeneration.Chromosomes = Population.CurrentGeneration.Chromosomes.OrderByDescending(c => c.FitnessValue.Value).ToList();
     }
 
-    private void RunEvaluateFitness(IChromosome<T> chromosome)
-    {
-        try
-        {
-            chromosome.Fitness = Fitness.Invoke(chromosome);
-        }
-        catch (Exception ex)
-        {
-            throw new ArgumentNullException($"Error executing Fitness.Evaluate for chromosome: {ex.Message}");
-        }
-    }
-
-    private IList<IChromosome<T>> SelectParents() =>
-        Selection.SelectChromosomes(Population.MinSize, Population.CurrentGeneration);
-
+    private IList<IChromosome<T>> Select() =>
+        Selection.Selection(Population.MinSize, Population.CurrentGeneration);
     private IList<IChromosome<T>> Cross(IList<IChromosome<T>> parents)
     {
         var rnd = new Random();
         var minSize = Population.MinSize;
         var offspring = new List<IChromosome<T>>(minSize);
 
-        for (var i = 0; i < minSize; i += Crossover.ParentsNumber)
+        for (var i = 0; i < minSize; i += Crossover.ParentCount)
         {
-            var selectedParents = parents.Skip(i).Take(Crossover.ParentsNumber).ToList();
-            if (selectedParents.Count == Crossover.ParentsNumber && rnd.NextSingle() <= CrosProbability)
+            var selectedParents = parents.Skip(i).Take(Crossover.ParentCount).ToList();
+            if (selectedParents.Count == Crossover.ParentCount && rnd.NextSingle() <= CrosProbability)
             {
                 var children = Crossover.Cross(selectedParents);
                 offspring.AddRange(children);
@@ -200,7 +164,6 @@ public sealed class GeneticAlgorithm<T>
 
         return offspring;
     }
-
     private void Mutate(IList<IChromosome<T>> chromosomes)
     {
         foreach (var chromosome in chromosomes)

@@ -6,7 +6,7 @@ public class Population<T> : IPopulation<T>
 {
     public event EventHandler BestChromosomeChanged;
 
-    public Population(int minSize, int maxSize, IChromosome<T> adamChromosome)
+    public Population(int minSize, int maxSize, IChromosome<T> firstChromosome)
     {
         if (minSize < 2)
         {
@@ -18,11 +18,9 @@ public class Population<T> : IPopulation<T>
             throw new ArgumentOutOfRangeException(nameof(maxSize), "The maximum size for a population should be equal or greater than minimum size.");
         }
 
-        //ExceptionHelper.ThrowIfNull(nameof(adamChromosome), adamChromosome);
-
         MinSize = minSize;
         MaxSize = maxSize;
-        AdamChromosome = adamChromosome;
+        FirstChromosome = firstChromosome;
         Generations = new List<Generation<T>>();
     }
 
@@ -32,14 +30,14 @@ public class Population<T> : IPopulation<T>
     public int MinSize { get; set; }
     public int MaxSize { get; set; }
     public IChromosome<T> BestChromosome { get; protected set; }
-    protected IChromosome<T> AdamChromosome { get; set; }
+    protected IChromosome<T> FirstChromosome { get; set; }
 
     public virtual void InitGeneration()
     {
         Generations = new List<Generation<T>>();
         GenerationsNumber = 0;
 
-        var chromosomes = Enumerable.Range(0, MinSize).Select(x => AdamChromosome.CreateNew()).ToList();
+        var chromosomes = Enumerable.Range(0, MinSize).Select(x => FirstChromosome.CreateNew()).ToList();
 
         CreateNewGeneration(chromosomes);
     }
@@ -54,7 +52,7 @@ public class Population<T> : IPopulation<T>
 
     public virtual void EndCurrentGeneration()
     {
-        CurrentGeneration.End();
+        CurrentGeneration.EndGeneration();
 
         if (BestChromosome is null || BestChromosome.CompareTo(CurrentGeneration.BestChromosome) != 0)
         {
@@ -64,5 +62,6 @@ public class Population<T> : IPopulation<T>
         }
     }
 
-    protected virtual void OnBestChromosomeChanged(EventArgs args) => BestChromosomeChanged?.Invoke(this, args);
+    protected virtual void OnBestChromosomeChanged(EventArgs args) => 
+        BestChromosomeChanged?.Invoke(this, args);
 }

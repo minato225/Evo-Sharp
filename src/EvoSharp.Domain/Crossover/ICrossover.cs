@@ -4,9 +4,9 @@ namespace EvoSharp.Domain.Crossover;
 
 public interface ICrossover : IChromosomeOperator
 {
-    int ParentsNumber { get; }
-    int ChildrenNumber { get; }
-    int MinChromosomeLength { get; }
+    int ParentCount { get; }
+    int ChildCount { get; }
+    int MinLength { get; }
 
     IList<IChromosome<T>> Cross<T>(IList<IChromosome<T>> parents);
 }

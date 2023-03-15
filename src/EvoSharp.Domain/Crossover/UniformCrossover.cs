@@ -4,8 +4,9 @@ namespace EvoSharp.Domain.Crossover;
 
 public class UniformCrossover : CrossoverBase
 {
-    public UniformCrossover(float mixProbability) : base(2, 2) => MixProbability = mixProbability;
-    public float MixProbability { get; set; }
+    public UniformCrossover(float mixProbability) : base(2, 2) => 
+        Probability = mixProbability;
+    public float Probability { get; set; }
 
     protected override IList<IChromosome<T>> PerformCross<T>(IList<IChromosome<T>> parents)
     {
@@ -16,7 +17,7 @@ public class UniformCrossover : CrossoverBase
 
         for (int i = 0; i < firstParent.Length; i++)
         {
-            (firstChild[i], secondChild[i]) = rnd.NextSingle() < MixProbability ?
+            (firstChild[i], secondChild[i]) = rnd.NextSingle() < Probability ?
                 (firstParent[i], secondParent[i]) :
                 (secondParent[i], firstParent[i]);
         }

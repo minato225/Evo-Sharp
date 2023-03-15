@@ -11,5 +11,5 @@ public class FitnessThresholdTermination : TerminationBase
     public required double ExpectedFitness { get; set; }
 
     protected override bool PerformHasReached<T>(GeneticAlgorithm<T> geneticAlgorithm) => 
-        geneticAlgorithm.Population.BestChromosome.Fitness >= ExpectedFitness;
+        geneticAlgorithm.Population.BestChromosome.FitnessValue >= ExpectedFitness;
 }

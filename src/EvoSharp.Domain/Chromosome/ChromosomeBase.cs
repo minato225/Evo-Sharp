@@ -2,72 +2,33 @@ namespace EvoSharp.Domain.Chromosome;
 
 public abstract class ChromosomeBase<T> : IChromosome<T>
 {
-    private T[] m_genes;
-    protected int m_length;
+    private T[] _genes;
+    protected int _length;
     protected readonly Random _random = new();
 
     protected ChromosomeBase(int length)
     {
         ValidateLength(length);
 
-        m_length = length;
-        m_genes = new T[length];
+        _length = length;
+        _genes = new T[length];
     }
 
     public T this[int i]
     {
-        get => m_genes[i];
+        get => _genes[i];
         set
         {
-            if (i < 0 || i >= m_length)
+            if (i < 0 || i >= _length)
                 throw new ArgumentOutOfRangeException(nameof(i), $"There is no Gene on index {i} to be replaced.");
-            m_genes[i] = value;
-            Fitness = null;
+            _genes[i] = value;
+            FitnessValue = null;
         }
     }
 
-    public double? Fitness { get; set; }
-    public int Length => m_length;
-    public T[] Genes => m_genes;
-
-    public static bool operator ==(ChromosomeBase<T> first, ChromosomeBase<T> second)
-    {
-        if (ReferenceEquals(first, second))
-        {
-            return true;
-        }
-
-        if (first is null || second is null)
-        {
-            return false;
-        }
-
-        return first.CompareTo(second) == 0;
-    }
-
-    public static bool operator !=(ChromosomeBase<T> first, ChromosomeBase<T> second) => !(first == second);
-
-    public static bool operator <(ChromosomeBase<T> first, ChromosomeBase<T> second)
-    {
-        if (ReferenceEquals(first, second))
-        {
-            return false;
-        }
-
-        if (first is null)
-        {
-            return true;
-        }
-
-        if (second is null)
-        {
-            return false;
-        }
-
-        return first.CompareTo(second) < 0;
-    }
-
-    public static bool operator >(ChromosomeBase<T> first, ChromosomeBase<T> second) => !(first == second) && !(first < second);
+    public double? FitnessValue { get; set; }
+    public int Length => _length;
+    public T[] Genes => _genes;
 
     public abstract T GenerateGene();
 
@@ -77,7 +38,7 @@ public abstract class ChromosomeBase<T> : IChromosome<T>
     {
         var clone = CreateNew();
         clone.ReplaceGenes(0, Genes);
-        clone.Fitness = Fitness;
+        clone.FitnessValue = FitnessValue;
 
         return clone;
     }
@@ -88,22 +49,22 @@ public abstract class ChromosomeBase<T> : IChromosome<T>
 
         if (genes.Length == 0) return;
 
-        if (startIndex < 0 || startIndex >= m_length)
+        if (startIndex < 0 || startIndex >= _length)
         {
             throw new ArgumentOutOfRangeException(nameof(startIndex), $"There is no Gene on index {startIndex} to be replaced.");
         }
 
-        Array.Copy(genes, 0, m_genes, startIndex, Math.Min(genes.Length, m_length - startIndex));
+        Array.Copy(genes, 0, _genes, startIndex, Math.Min(genes.Length, _length - startIndex));
 
-        Fitness = null;
+        FitnessValue = null;
     }
 
     public void Resize(int newLength)
     {
         ValidateLength(newLength);
 
-        Array.Resize(ref m_genes, newLength);
-        m_length = newLength;
+        Array.Resize(ref _genes, newLength);
+        _length = newLength;
     }
 
     public int CompareTo(IChromosome<T> other)
@@ -113,19 +74,19 @@ public abstract class ChromosomeBase<T> : IChromosome<T>
             return -1;
         }
 
-        var otherFitness = other.Fitness;
+        var otherFitness = other.FitnessValue;
 
-        if (Fitness == otherFitness)
+        if (FitnessValue == otherFitness)
         {
             return 0;
         }
 
-        return Fitness > otherFitness ? 1 : -1;
+        return FitnessValue > otherFitness ? 1 : -1;
     }
 
     public override bool Equals(object obj) => obj is IChromosome<T> other && CompareTo(other) == 0;
 
-    public override int GetHashCode() => Fitness.GetHashCode();
+    public override int GetHashCode() => FitnessValue.GetHashCode();
 
     protected virtual void CreateGene(int index) => this[index] = GenerateGene();
 

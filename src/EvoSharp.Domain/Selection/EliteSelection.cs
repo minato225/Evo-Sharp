@@ -14,14 +14,14 @@ public sealed class EliteSelection<T> : SelectionBase<T>
         _previousGenerationChromosomesNumber = previousGenerationChromosomesNumber;
     }
 
-    protected override IList<IChromosome<T>> PerformSelectChromosomes(int number, Generation<T> generation)
+    protected override IList<IChromosome<T>> PerformSelection(int number, Generation<T> generation)
     {
-        if (generation.Number == 1)
+        if (generation.GenerationNumber == 1)
             _previousGenerationChromosomes = new List<IChromosome<T>>();
 
         _previousGenerationChromosomes.AddRange(generation.Chromosomes);
 
-        var ordered = _previousGenerationChromosomes.OrderByDescending(c => c.Fitness);
+        var ordered = _previousGenerationChromosomes.OrderByDescending(c => c.FitnessValue);
         var result = ordered.Take(number).ToList();
 
         _previousGenerationChromosomes = result.Take(_previousGenerationChromosomesNumber).ToList();

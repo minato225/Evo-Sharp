@@ -5,5 +5,5 @@ namespace EvoSharp.Domain.Selection;
 
 public interface ISelection<T>
 {
-    IList<IChromosome<T>> SelectChromosomes(int number, Generation<T> generation);
+    IList<IChromosome<T>> Selection(int number, Generation<T> generation);
 }
