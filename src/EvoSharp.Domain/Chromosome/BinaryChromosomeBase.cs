@@ -1,10 +1,15 @@
 ﻿namespace EvoSharp.Domain.Chromosome;
 
-public abstract class BinaryChromosomeBase : ChromosomeBase<bool>, IBinaryChromosome<bool>
+public class BinaryChromosome : ChromosomeBase<bool>
 {
-    protected BinaryChromosomeBase(int length) :
+    protected BinaryChromosome(int length) :
         base(length)
     { }
+
+    public override IChromosome<bool> CreateNew()
+    {
+        throw new NotImplementedException();
+    }
 
     public virtual void FlipGene(int index) =>
         this[index] = !this[index];

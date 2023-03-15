@@ -9,7 +9,7 @@ public class TplPopulation<T> : Population<T>
     {
     }
 
-    public override void CreateInitialGeneration()
+    public override void InitGeneration()
     {
         Generations = new List<Generation<T>>();
         GenerationsNumber = 0;

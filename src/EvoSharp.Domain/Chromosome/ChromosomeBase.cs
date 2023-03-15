@@ -1,12 +1,9 @@
-using System.Diagnostics;
-
 namespace EvoSharp.Domain.Chromosome;
 
-[DebuggerDisplay("Fitness:{Fitness}, Genes:{Length}")]
 public abstract class ChromosomeBase<T> : IChromosome<T>
 {
     private T[] m_genes;
-    private int m_length;
+    protected int m_length;
     protected readonly Random _random = new();
 
     protected ChromosomeBase(int length)
@@ -40,7 +37,7 @@ public abstract class ChromosomeBase<T> : IChromosome<T>
             return true;
         }
 
-        if ((object)first == null || (object)second == null)
+        if (first is null || second is null)
         {
             return false;
         }

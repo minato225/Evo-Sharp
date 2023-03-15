@@ -6,9 +6,9 @@ namespace EvoSharp.Domain.Termination;
 /// The genetic algorithm will be terminate when reach the expected generation number.
 /// </remarks>
 /// </summary>
-public class GenerationNumberTermination : TerminationBase
+public class GenNumberTermination : TerminationBase
 {
-    public required int ExpectedGenerationNumber { get; set; }
+    public required int MaxGenCount { get; set; }
     protected override bool PerformHasReached<T>(GeneticAlgorithm<T> geneticAlgorithm) =>
-        geneticAlgorithm.Population.GenerationsNumber >= ExpectedGenerationNumber;
+        geneticAlgorithm.Population.GenerationsNumber >= MaxGenCount;
 }

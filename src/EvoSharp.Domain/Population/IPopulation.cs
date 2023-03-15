@@ -13,7 +13,7 @@ public interface IPopulation<T>
     int MaxSize { get; set; }
     IChromosome<T> BestChromosome { get; }
 
-    void CreateInitialGeneration();
+    void InitGeneration();
     void CreateNewGeneration(IList<IChromosome<T>> chromosomes);
     void EndCurrentGeneration();
 }

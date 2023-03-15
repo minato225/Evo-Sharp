@@ -26,9 +26,9 @@ public enum GeneticAlgorithmState
 
 public sealed class GeneticAlgorithm<T>
 {
-    public const float DefaultCrossoverProbability = 0.75f;
-    public const float DefaultMutationProbability = 0.1f;
-    private Stopwatch m_stopwatch;
+    public const float BaseCrosProbability = 0.75f;
+    public const float BaseMutProbability = 0.1f;
+    private Stopwatch _stopwatch;
 
     public GeneticAlgorithm(
         IPopulation<T> population,
@@ -48,41 +48,38 @@ public sealed class GeneticAlgorithm<T>
         Selection = selection;
         Crossover = crossover;
         Mutation = mutation;
-        Termination = new GenerationNumberTermination { ExpectedGenerationNumber = 50 };
+        Termination = new GenNumberTermination { MaxGenCount = 50 };
 
-        CrossoverProbability = DefaultCrossoverProbability;
-        MutationProbability = DefaultMutationProbability;
-        TimeEvolving = TimeSpan.Zero;
+        CrosProbability = BaseCrosProbability;
+        MutProbability = BaseMutProbability;
+        TotalTime = TimeSpan.Zero;
         State = GeneticAlgorithmState.NotStarted;
     }
 
     public event EventHandler GenerationRan;
     public event EventHandler TerminationReached;
-    public event EventHandler Stopped;
 
     public IPopulation<T> Population { get; private set; }
     public Func<IChromosome<T>, double> Fitness { get; private set; }
     public ISelection<T> Selection { get; set; }
     public ICrossover Crossover { get; set; }
-    public float CrossoverProbability { get; set; }
+    public float CrosProbability { get; set; }
     public IMutation Mutation { get; set; }
-    public float MutationProbability { get; set; }
+    public float MutProbability { get; set; }
     public ITermination Termination { get; set; }
-    public TimeSpan TimeEvolving { get; private set; }
+    public TimeSpan TotalTime { get; private set; }
 
     public GeneticAlgorithmState State { get; private set; }
-    public bool IsRunning => State == GeneticAlgorithmState.Started || State == GeneticAlgorithmState.Resumed;
 
     public void Start()
     {
-
         State = GeneticAlgorithmState.Started;
-        m_stopwatch = Stopwatch.StartNew();
+        _stopwatch = Stopwatch.StartNew();
 
-        Population.CreateInitialGeneration();
+        Population.InitGeneration();
 
-        m_stopwatch.Stop();
-        TimeEvolving = m_stopwatch.Elapsed;
+        _stopwatch.Stop();
+        TotalTime = _stopwatch.Elapsed;
 
         Resume();
     }
@@ -115,11 +112,11 @@ public sealed class GeneticAlgorithm<T>
 
             do
             {
-                m_stopwatch.Restart();
+                _stopwatch.Restart();
                 terminationConditionReached = EvolveOneGeneration();
-                m_stopwatch.Stop();
+                _stopwatch.Stop();
 
-                TimeEvolving += m_stopwatch.Elapsed;
+                TotalTime += _stopwatch.Elapsed;
             }
             while (!terminationConditionReached);
         }
@@ -194,7 +191,7 @@ public sealed class GeneticAlgorithm<T>
         for (var i = 0; i < minSize; i += Crossover.ParentsNumber)
         {
             var selectedParents = parents.Skip(i).Take(Crossover.ParentsNumber).ToList();
-            if (selectedParents.Count == Crossover.ParentsNumber && rnd.NextSingle() <= CrossoverProbability)
+            if (selectedParents.Count == Crossover.ParentsNumber && rnd.NextSingle() <= CrosProbability)
             {
                 var children = Crossover.Cross(selectedParents);
                 offspring.AddRange(children);
@@ -208,7 +205,7 @@ public sealed class GeneticAlgorithm<T>
     {
         foreach (var chromosome in chromosomes)
         {
-            Mutation.Mutate(chromosome, MutationProbability);
+            Mutation.Mutate(chromosome, MutProbability);
         }
     }
 }

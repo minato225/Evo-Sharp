@@ -34,26 +34,12 @@ public class Population<T> : IPopulation<T>
     public IChromosome<T> BestChromosome { get; protected set; }
     protected IChromosome<T> AdamChromosome { get; set; }
 
-    public virtual void CreateInitialGeneration()
+    public virtual void InitGeneration()
     {
         Generations = new List<Generation<T>>();
         GenerationsNumber = 0;
 
-        var chromosomes = new List<IChromosome<T>>();
-
-        for (int i = 0; i < MinSize; i++)
-        {
-            var c = AdamChromosome.CreateNew();
-
-            if (c == null)
-            {
-                throw new InvalidOperationException("The Adam chromosome's 'CreateNew' method generated a null chromosome. This is a invalid behavior, please, check your chromosome code.");
-            }
-
-            //c.ValidateGenes();
-
-            chromosomes.Add(c);
-        }
+        var chromosomes = Enumerable.Range(0, MinSize).Select(x => AdamChromosome.CreateNew()).ToList();
 
         CreateNewGeneration(chromosomes);
     }

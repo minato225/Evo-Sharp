@@ -7,6 +7,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EvoSharp.Domain.UnitTests",
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EvoSharp.Domain", "EvoSharp.Domain\EvoSharp.Domain.csproj", "{7852D522-2EBB-433A-A6FC-361A0530B0CF}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EvoSharp.ConsoleApp", "EvoSharp.ConsoleApp\EvoSharp.ConsoleApp.csproj", "{ED059DE7-80B1-460D-8DD6-58E355E9D59F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{7852D522-2EBB-433A-A6FC-361A0530B0CF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7852D522-2EBB-433A-A6FC-361A0530B0CF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7852D522-2EBB-433A-A6FC-361A0530B0CF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ED059DE7-80B1-460D-8DD6-58E355E9D59F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ED059DE7-80B1-460D-8DD6-58E355E9D59F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ED059DE7-80B1-460D-8DD6-58E355E9D59F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ED059DE7-80B1-460D-8DD6-58E355E9D59F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

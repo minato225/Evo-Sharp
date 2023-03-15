@@ -6,7 +6,7 @@ public class FlipBitMutation : MutationBase
 {
     protected override void PerformMutate<T>(IChromosome<T> chromosome, float probability)
     {
-        if (chromosome is not IBinaryChromosome<T> binaryChromosome)
+        if (chromosome is not BinaryChromosome binaryChromosome)
         {
             throw new ArgumentException("Needs a binary chromosome that implements IBinaryChromosome.");
         }
