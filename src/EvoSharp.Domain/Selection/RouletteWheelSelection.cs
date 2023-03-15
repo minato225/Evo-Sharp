@@ -3,13 +3,13 @@ using EvoSharp.Domain.Population;
 
 namespace EvoSharp.Domain.Selection;
 
-public class RouletteWheelSelection : SelectionBase
+public class RouletteWheelSelection<T> : SelectionBase<T>
 {
     public RouletteWheelSelection() : base(2)
     {
     }
 
-    protected static IList<IChromosome<T>> SelectFromWheel<T>(int number, IList<IChromosome<T>> chromosomes, IList<double> rouletteWheel, Func<double> getPointer)
+    protected static IList<IChromosome<T>> SelectFromWheel(int number, IList<IChromosome<T>> chromosomes, IList<double> rouletteWheel, Func<double> getPointer)
     {
         var selected = new List<IChromosome<T>>();
 
@@ -31,7 +31,7 @@ public class RouletteWheelSelection : SelectionBase
     /// </summary>
     /// <param name="chromosomes">The chromosomes.</param>
     /// <param name="rouletteWheel">The roulette wheel.</param>
-    protected static void CalculateCumulativePercentFitness<T>(IList<IChromosome<T>> chromosomes, IList<double> rouletteWheel)
+    protected static void CalculateCumulativePercentFitness(IList<IChromosome<T>> chromosomes, IList<double> rouletteWheel)
     {
         var sumFitness = chromosomes.Sum(c => c.Fitness.Value);
 
@@ -44,7 +44,7 @@ public class RouletteWheelSelection : SelectionBase
         }
     }
 
-    protected override IList<IChromosome<T>> PerformSelectChromosomes<T>(int number, Generation<T> generation)
+    protected override IList<IChromosome<T>> PerformSelectChromosomes(int number, Generation<T> generation)
     {
         var chromosomes = generation.Chromosomes;
         var rouletteWheel = new List<double>();

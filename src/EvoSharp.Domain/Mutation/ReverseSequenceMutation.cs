@@ -1,41 +1,25 @@
-﻿using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
+﻿using EvoSharp.Domain.Chromosome;
 
-namespace EvoSharp.Domain.Mutation
+namespace EvoSharp.Domain.Mutation;
+
+public class ReverseSequenceMutation : MutationBase
 {
-    /// <summary>
-    /// Reverse Sequence Mutation (RSM).
-    /// <remarks>
-    /// In the reverse sequence mutation operator, we take a sequence S limited by two 
-    /// positions i and j randomly chosen, such that i&lt;j. The gene order in this sequence 
-    /// will be reversed by the same way as what has been covered in the previous operation.
-    /// <see href="http://arxiv.org/ftp/arxiv/papers/1203/1203.3099.pdf">Analyzing the Performance of Mutation Operators to Solve the Travelling Salesman Problem</see>
-    /// </remarks>
-    /// </summary>
-    [DisplayName("Reverse Sequence (RSM)")]
-    public class ReverseSequenceMutation : SequenceMutationBase
-    {
-        #region Constructors
-        /// <summary>
-        /// Initializes a new instance of the <see cref="ReverseSequenceMutation"/> class.
-        /// </summary>
-        public ReverseSequenceMutation()
-        {
-            IsOrdered = true;
-        }
-        #endregion
+    public ReverseSequenceMutation() => IsOrdered = true;
 
-        #region Methods
-        /// <summary>
-        /// Mutate selected sequence.
-        /// </summary>
-        /// <returns>The resulted sequence after mutation operation.</returns>
-        /// <param name="sequence">The sequence to be mutated.</param>
-        protected override IEnumerable<T> MutateOnSequence<T>(IEnumerable<T> sequence)
+    protected override void PerformMutate<T>(IChromosome<T> chromosome, float probability)
+    {
+        if (chromosome.Length < 3)
         {
-            return sequence.Reverse();
+            throw new ArgumentException("A chromosome should have, at least, 3 genes. {0} has only {1} gene.");
         }
-        #endregion
+
+        if (_random.NextSingle() > probability) return;
+
+        var (firstIndex, secondIndex) = (_random.Next(chromosome.Length), _random.Next(chromosome.Length));
+        (firstIndex, secondIndex) = (Math.Min(firstIndex, secondIndex), Math.Max(firstIndex, secondIndex));
+
+        var mutatedSequence = chromosome.Genes[firstIndex..secondIndex].Reverse().ToArray();
+
+        chromosome.ReplaceGenes(firstIndex, mutatedSequence);
     }
 }

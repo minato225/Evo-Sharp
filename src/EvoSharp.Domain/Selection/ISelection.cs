@@ -3,7 +3,7 @@ using EvoSharp.Domain.Population;
 
 namespace EvoSharp.Domain.Selection;
 
-public interface ISelection
+public interface ISelection<T>
 {
-    IList<IChromosome<T>> SelectChromosomes<T>(int number, Generation<T> generation);
+    IList<IChromosome<T>> SelectChromosomes(int number, Generation<T> generation);
 }

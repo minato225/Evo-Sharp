@@ -1,44 +1,18 @@
-namespace EvoSharp.Domain.Termination
+namespace EvoSharp.Domain.Termination;
+
+public abstract class TerminationBase : ITermination
 {
-    /// <summary>
-    /// Base class for ITerminations implementations.
-    /// </summary>
-    public abstract class TerminationBase : ITermination
+    private bool m_hasReached;
+
+    public bool HasReached<T>(GeneticAlgorithm<T> geneticAlgorithm)
     {
-        #region Fields
-        private bool m_hasReached;
-        #endregion
+        ArgumentNullException.ThrowIfNull(nameof(geneticAlgorithm));
 
-        #region Methods
-        /// <summary>
-        /// Determines whether the specified geneticAlgorithm reached the termination condition.
-        /// </summary>
-        /// <returns>True if termination has been reached, otherwise false.</returns>
-        /// <param name="geneticAlgorithm">The genetic algorithm.</param>
-        public bool HasReached(IGeneticAlgorithm geneticAlgorithm)
-        {
-            ExceptionHelper.ThrowIfNull("geneticAlgorithm", geneticAlgorithm);
+        m_hasReached = PerformHasReached(geneticAlgorithm);
 
-            m_hasReached = PerformHasReached(geneticAlgorithm);
-
-            return m_hasReached;
-        }
-
-        /// <summary>
-        /// Returns a <see cref="string"/> that represents the current <see cref="LogicalOperatorTerminationBase"/>.
-        /// </summary>
-        /// <returns>A <see cref="string"/> that represents the current <see cref="LogicalOperatorTerminationBase"/>.</returns>
-        public override string ToString()
-        {
-            return "{0} (HasReached: {1})".With(GetType().Name, m_hasReached);
-        }
-
-        /// <summary>
-        /// Determines whether the specified geneticAlgorithm reached the termination condition.
-        /// </summary>
-        /// <returns>True if termination has been reached, otherwise false.</returns>
-        /// <param name="geneticAlgorithm">The genetic algorithm.</param>
-        protected abstract bool PerformHasReached(IGeneticAlgorithm geneticAlgorithm);
-        #endregion
+        return m_hasReached;
     }
+    public override string ToString() => $"{GetType().Name} (HasReached: {m_hasReached})";
+
+    protected abstract bool PerformHasReached<T>(GeneticAlgorithm<T> geneticAlgorithm);
 }

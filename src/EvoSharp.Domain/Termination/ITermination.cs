@@ -2,5 +2,5 @@ namespace EvoSharp.Domain.Termination;
 
 public interface ITermination
 {
-    bool HasReached<T>(IGeneticAlgorithm<T> geneticAlgorithm);
+    bool HasReached<T>(GeneticAlgorithm<T> geneticAlgorithm);
 }

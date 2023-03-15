@@ -5,7 +5,7 @@ VisualStudioVersion = 17.4.33110.190
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EvoSharp.Domain.UnitTests", "EvoSharp.Domain.UnitTests\EvoSharp.Domain.UnitTests.csproj", "{03B141D1-7D28-43CE-8E31-13D8E8014A98}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EvoSharp.Domain", "EnvoSharp.Domain\EvoSharp.Domain.csproj", "{7852D522-2EBB-433A-A6FC-361A0530B0CF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EvoSharp.Domain", "EvoSharp.Domain\EvoSharp.Domain.csproj", "{7852D522-2EBB-433A-A6FC-361A0530B0CF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

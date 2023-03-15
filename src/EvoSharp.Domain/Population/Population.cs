@@ -57,6 +57,7 @@ public class Population<T> : IPopulation<T>
 
         CreateNewGeneration(chromosomes);
     }
+
     public virtual void CreateNewGeneration(IList<IChromosome<T>> chromosomes)
     {
         ArgumentNullException.ThrowIfNull(nameof(chromosomes));
@@ -64,6 +65,7 @@ public class Population<T> : IPopulation<T>
         CurrentGeneration = new Generation<T>(++GenerationsNumber, chromosomes);
         Generations.Add(CurrentGeneration);
     }     
+
     public virtual void EndCurrentGeneration()
     {
         CurrentGeneration.End();

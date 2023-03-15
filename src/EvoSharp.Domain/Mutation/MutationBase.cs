@@ -13,5 +13,6 @@ public abstract class MutationBase : IMutation
 
         PerformMutate(chromosome, probability);
     }
+
     protected abstract void PerformMutate<T>(IChromosome<T> chromosome, float probability);
 }

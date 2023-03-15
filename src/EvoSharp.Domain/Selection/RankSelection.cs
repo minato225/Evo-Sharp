@@ -1,16 +1,15 @@
 ﻿using EvoSharp.Domain.Chromosome;
 using EvoSharp.Domain.Population;
-using System.Linq;
 
 namespace EvoSharp.Domain.Selection;
 
-public class RankSelection : SelectionBase
+public class RankSelection<T> : SelectionBase<T>
 {
     public RankSelection() : base(2)
     {
     }
 
-    protected static IList<IChromosome<T>> SelectFromWheel<T>(int number, IList<IChromosome<T>> chromosomes, IList<double> rankWheel, Func<double> getPointer)
+    protected static IList<IChromosome<T>> SelectFromWheel(int number, IList<IChromosome<T>> chromosomes, IList<double> rankWheel, Func<double> getPointer)
     {
         var selected = new List<IChromosome<T>>();
 
@@ -32,7 +31,7 @@ public class RankSelection : SelectionBase
     /// </summary>
     /// <param name="chromosomes">The chromosomes.</param>
     /// <param name="rankWheel">The rank wheel.</param>
-    protected static void CalculateCumulativeFitnessRank<T>(IList<IChromosome<T>> chromosomes, IList<double> rankWheel)
+    protected static void CalculateCumulativeFitnessRank(IList<IChromosome<T>> chromosomes, IList<double> rankWheel)
     {
         var totalFitness = chromosomes.Count * (chromosomes.Count + 1) / 2;
 
@@ -45,7 +44,7 @@ public class RankSelection : SelectionBase
         }
     }
 
-    protected override IList<IChromosome<T>> PerformSelectChromosomes<T>(int number, Generation<T> generation)
+    protected override IList<IChromosome<T>> PerformSelectChromosomes(int number, Generation<T> generation)
     {
         var chromosomes = generation.Chromosomes.OrderByDescending(c => c.Fitness).ToList();
         var rankWheel = new List<double>();

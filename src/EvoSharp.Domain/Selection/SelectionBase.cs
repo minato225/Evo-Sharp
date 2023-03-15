@@ -2,14 +2,14 @@ using EvoSharp.Domain.Chromosome;
 using EvoSharp.Domain.Population;
 
 namespace EvoSharp.Domain.Selection;
-public abstract class SelectionBase : ISelection
+public abstract class SelectionBase<T> : ISelection<T>
 {
     readonly int m_minNumberChromosomes;
     protected readonly Random _random = new();
 
     protected SelectionBase(int minNumberChromosomes) => m_minNumberChromosomes = minNumberChromosomes;
 
-    public IList<IChromosome<T>> SelectChromosomes<T>(int number, Generation<T> generation)
+    public IList<IChromosome<T>> SelectChromosomes(int number, Generation<T> generation)
     {
         if (number < m_minNumberChromosomes)
         {
@@ -23,8 +23,8 @@ public abstract class SelectionBase : ISelection
             throw new ArgumentException("There are chromosomes with null fitness.");
         }
 
-        return PerformSelectChromosomes<T>(number, generation);
+        return PerformSelectChromosomes(number, generation);
     }
 
-    protected abstract IList<IChromosome<T>> PerformSelectChromosomes<T>(int number, Generation<T> generation);
+    protected abstract IList<IChromosome<T>> PerformSelectChromosomes(int number, Generation<T> generation);
 }

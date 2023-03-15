@@ -8,7 +8,7 @@ public class FlipBitMutation : MutationBase
     {
         if (chromosome is not IBinaryChromosome<T> binaryChromosome)
         {
-            throw new MutationException(this, "Needs a binary chromosome that implements IBinaryChromosome.");
+            throw new ArgumentException("Needs a binary chromosome that implements IBinaryChromosome.");
         }
 
         if (_random.NextSingle() <= probability)

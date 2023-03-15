@@ -3,7 +3,7 @@ using EvoSharp.Domain.Population;
 
 namespace EvoSharp.Domain.Selection;
 
-public sealed class EliteSelection : SelectionBase
+public sealed class EliteSelection<T> : SelectionBase<T>
 {
     readonly int _previousGenerationChromosomesNumber;
     List<IChromosome<T>> _previousGenerationChromosomes;
@@ -14,7 +14,7 @@ public sealed class EliteSelection : SelectionBase
         _previousGenerationChromosomesNumber = previousGenerationChromosomesNumber;
     }
 
-    protected override IList<IChromosome<T>> PerformSelectChromosomes<T>(int number, Generation generation)
+    protected override IList<IChromosome<T>> PerformSelectChromosomes(int number, Generation<T> generation)
     {
         if (generation.Number == 1)
             _previousGenerationChromosomes = new List<IChromosome<T>>();
