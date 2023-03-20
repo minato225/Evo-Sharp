@@ -1,0 +1,119 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="EvoSharp.Domain.Chromosome.BinaryChromosome" Collapsed="true">
+    <Position X="0.5" Y="2.75" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAIBAEAAAAAgAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Chromosome\BinaryChromosomeBase.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EvoSharp.Domain.Chromosome.ChromosomeBase&lt;T&gt;" Collapsed="true">
+    <Position X="2.75" Y="1.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAhAAAAAIAQAiAAAEgBAAAAAAIAABAAAAEMAgBE=</HashCode>
+      <FileName>Chromosome\ChromosomeBase.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="EvoSharp.Domain.Chromosome.FloatChromosome" Collapsed="true">
+    <Position X="2.75" Y="2.75" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAIAAEAAAAAgAAAAAAgAAAACAAACAAAAA=</HashCode>
+      <FileName>Chromosome\FloatChromosome.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EvoSharp.Domain.Chromosome.IntChromosome" Collapsed="true">
+    <Position X="5" Y="2.75" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAIAAEAAAAAgAAAAAAgAAAAAAAACAAAAA=</HashCode>
+      <FileName>Chromosome\IntChromosome.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EvoSharp.Domain.Population.Generation&lt;T&gt;">
+    <Position X="5" Y="4.25" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAACAAAIAAAAAAAAIAAAAAAAAAAAAAAIAAA=</HashCode>
+      <FileName>Population\Generation.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EvoSharp.Domain.Population.Population&lt;T&gt;" Collapsed="true">
+    <Position X="1" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AACAAAECAAAEAABIABCAASAAAIAAAAAAAgAAAAAAAAA=</HashCode>
+      <FileName>Population\Population.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="EvoSharp.Domain.Population.TplPopulation&lt;T&gt;" Collapsed="true">
+    <Position X="1" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Population\TplPopulation.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EvoSharp.Domain.Termination.FitnessStagnationTermination" Collapsed="true">
+    <Position X="8" Y="6.25" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAIAAAAACAAAAAAAAEAAAIAAA=</HashCode>
+      <FileName>Termination\FitnessStagnationTermination.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EvoSharp.Domain.Termination.FitnessThresholdTermination" Collapsed="true">
+    <Position X="10.5" Y="6.25" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAACAAAAAAAAAA=</HashCode>
+      <FileName>Termination\FitnessThresholdTermination.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EvoSharp.Domain.Termination.GenNumberTermination" Collapsed="true">
+    <Position X="13" Y="6.25" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAABAAAAA=</HashCode>
+      <FileName>Termination\GenNumberTermination.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EvoSharp.Domain.Termination.TerminationBase" Collapsed="true">
+    <Position X="11" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAEIAAAIAAAAAgAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Termination\TerminationBase.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="EvoSharp.Domain.Termination.TimeEvolvingTermination" Collapsed="true">
+    <Position X="15.25" Y="6.25" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAEAAAAA=</HashCode>
+      <FileName>Termination\TimeEvolvingTermination.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Interface Name="EvoSharp.Domain.Chromosome.IChromosome&lt;T&gt;">
+    <Position X="7.25" Y="0.75" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAIAAACAAAEgBAAAAAAAAAAAAAAEIAABA=</HashCode>
+      <FileName>Chromosome\IChromosome.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="EvoSharp.Domain.Chromosome.IChromosomeOperator" Collapsed="true">
+    <Position X="10" Y="1" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIA=</HashCode>
+      <FileName>Chromosome\IChromosomeOperator.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="EvoSharp.Domain.Population.IPopulation&lt;T&gt;">
+    <Position X="2.75" Y="4.25" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AACAAAECAAAAAABIABCAACAAAIAAAAAAAgAAAAAAAAA=</HashCode>
+      <FileName>Population\IPopulation.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="EvoSharp.Domain.Termination.ITermination">
+    <Position X="12.75" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Termination\ITermination.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

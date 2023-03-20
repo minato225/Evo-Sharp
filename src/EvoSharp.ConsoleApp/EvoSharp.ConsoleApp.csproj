@@ -5,7 +5,32 @@
     <TargetFramework>net7.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
+    <PackageId>RdCorp.EvoSharp</PackageId>
+    <Authors>Roman Doskoch</Authors>
+    <Description>EvoSharp is a powerful tool for solving complex optimization problems through the use of evolutionary algorithms. 
+
+The library includes a variety of genetic operators, such as selection, crossover, and mutation, as well as fitness functions that can be customized to suit your specific optimization problem.
+
+With this Genetic Algorithm Class library, you can easily incorporate genetic algorithms into your software development projects, enabling you to find optimal solutions to complex problems in fields such as engineering, finance, and data science. The package is designed to be easy to use and highly customizable, making it an essential tool for any developer looking to solve optimization problems with genetic algorithms.</Description>
+    <Title>evo-sharp</Title>
+    <RepositoryUrl>https://github.com/minato225/Evo-Sharp</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageTags>genetic-algorithms, genetic, algorithms</PackageTags>
+    <PackageIcon>dna.png</PackageIcon>
+    <PackageReleaseNotes>See changes at https://github.com/minato225/Evo-Sharp</PackageReleaseNotes>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
   </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="..\..\images\dna.png">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+    <None Include="..\..\README.md">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+  </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\EvoSharp.Domain\EvoSharp.Domain.csproj" />

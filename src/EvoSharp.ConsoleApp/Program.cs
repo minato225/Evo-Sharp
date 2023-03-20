@@ -32,7 +32,10 @@ ga.GenerationRan += (_, _) =>
         latestFitness = bestFitness;
         var phenotype = bestChromosome.ToString();
 
-        Console.WriteLine($"Generation {ga.Population.GenerationsNumber}: Fitnes = {bestFitness}, best gene: {ga.Population.BestChromosome}");
+        Console.WriteLine($"" +
+            $"Generation {ga.Population.GenerationsNumber}: " +
+            $"Fitnes = {bestFitness}, " +
+            $"best gene: {ga.Population.BestChromosome}");
     }
 };
 
