@@ -6,7 +6,7 @@ public class UniformMutation : MutationBase
 {
     private readonly int[] _mutableGenesIndexes;
 
-    public UniformMutation(params int[] mutableGenesIndexes) => 
+    public UniformMutation(params int[] mutableGenesIndexes) =>
         _mutableGenesIndexes = mutableGenesIndexes;
 
     protected override void PerformMutate<T>(IChromosome<T> chromosome, float probability)

@@ -12,7 +12,7 @@ public abstract class TerminationBase : ITermination
 
         return _hasReached;
     }
-    public override string ToString() => 
+    public override string ToString() =>
         $"{GetType().Name} (HasReached: {_hasReached})";
 
     protected abstract bool PerformHasReached<T>(GeneticAlgorithm<T> geneticAlgorithm);

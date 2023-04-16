@@ -20,8 +20,4 @@
     <ProjectReference Include="..\EvoSharp.Domain\EvoSharp.Domain.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Selection\" />
-  </ItemGroup>
-
 </Project>

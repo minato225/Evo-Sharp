@@ -1,5 +1,3 @@
-using System.Numerics;
-
 namespace EvoSharp.Domain.Chromosome;
 
 public abstract class ChromosomeBase<T> : IChromosome<T>
@@ -17,13 +15,13 @@ public abstract class ChromosomeBase<T> : IChromosome<T>
         _minValue = minValue;
         _maxValue = maxValue;
         _length = length;
-        _genes = CreateGenes();
+        _genes = CreateGenes(length);
     }
 
     public ChromosomeBase(T[] genes)
     {
-        _length = genes.Length;
-        _genes = genes;
+        _genes = genes ?? throw new ArgumentNullException();
+        _length = _genes.Length;
     }
 
     public T this[int i]
@@ -100,11 +98,11 @@ public abstract class ChromosomeBase<T> : IChromosome<T>
 
     public override int GetHashCode() => FitnessValue.GetHashCode();
 
-    private T[] CreateGenes()
+    private T[] CreateGenes(int length)
     {
-        var result = new T[_length];
+        var result = new T[length];
 
-        for (int i = 0; i < Length; i++)
+        for (int i = 0; i < length; i++)
             result[i] = GenerateGene();
 
         return result;

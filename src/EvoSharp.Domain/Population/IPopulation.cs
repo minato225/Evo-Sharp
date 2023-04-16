@@ -7,7 +7,7 @@ public interface IPopulation<T>
     event EventHandler BestChromosomeChanged;
 
     IList<Generation<T>> Generations { get; }
-    Generation<T> CurrentGeneration { get; } 
+    Generation<T> CurrentGeneration { get; }
     int GenerationsNumber { get; }
     int MinSize { get; set; }
     int MaxSize { get; set; }

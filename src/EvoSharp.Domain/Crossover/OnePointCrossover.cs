@@ -4,7 +4,7 @@ namespace EvoSharp.Domain.Crossover;
 
 public class OnePointCrossover : CrossoverBase
 {
-    public OnePointCrossover(int swapPointIndex) : base(2, 2) => 
+    public OnePointCrossover(int swapPointIndex) : base(2, 2) =>
         SwapPointIndex = swapPointIndex;
     public int SwapPointIndex { get; set; }
 

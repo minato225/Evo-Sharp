@@ -1,5 +1,4 @@
 using EvoSharp.Domain.Chromosome;
-using EvoSharp.Domain.Population;
 
 namespace EvoSharp.Domain.Selection;
 
@@ -44,9 +43,8 @@ public class RouletteWheelSelection<T> : SelectionBase<T>
         }
     }
 
-    protected override IList<IChromosome<T>> PerformSelection(int number, Generation<T> generation)
+    protected override IList<IChromosome<T>> PerformSelection(int number, IList<IChromosome<T>> chromosomes)
     {
-        var chromosomes = generation.Chromosomes;
         var rouletteWheel = new List<double>();
 
         CalculateCumulativePercentFitness(chromosomes, rouletteWheel);

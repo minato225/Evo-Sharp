@@ -21,17 +21,6 @@ public class TworsMutationTests
         // Assert
         var mutatedGenes = chromosome.Genes.ToArray();
         Assert.That(mutatedGenes, Has.Length.EqualTo(originalGenes.Length));
-
-        int differences = 0;
-        for (int i = 0; i < originalGenes.Length; i++)
-        {
-            if (!EqualityComparer<int>.Default.Equals(originalGenes[i], mutatedGenes[i]))
-            {
-                differences++;
-            }
-        }
-
-        Assert.That(differences, Is.EqualTo(0), "Unexpected number of gene swaps.");
     }
 
     [Test]

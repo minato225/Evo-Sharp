@@ -1,5 +1,4 @@
 using EvoSharp.Domain.Chromosome;
-using EvoSharp.Domain.Population;
 
 namespace EvoSharp.Domain.Selection;
 public abstract class SelectionBase<T> : ISelection<T>
@@ -9,22 +8,22 @@ public abstract class SelectionBase<T> : ISelection<T>
 
     protected SelectionBase(int minNumberChromosomes) => _minCountChromosomes = minNumberChromosomes;
 
-    public IList<IChromosome<T>> Selection(int number, Generation<T> generation)
+    public IList<IChromosome<T>> Selection(int minSize, IList<IChromosome<T>> chromosomes)
     {
-        if (number < _minCountChromosomes)
+        if (minSize < _minCountChromosomes)
         {
-            throw new ArgumentOutOfRangeException(nameof(number), $"The number of selected chromosomes should be at least {_minCountChromosomes}.");
+            throw new ArgumentOutOfRangeException(nameof(minSize), $"The number of selected chromosomes should be at least {_minCountChromosomes}.");
         }
 
-        ArgumentNullException.ThrowIfNull(nameof(generation));
+        ArgumentNullException.ThrowIfNull(chromosomes, nameof(chromosomes));
 
-        if (generation.Chromosomes.Any(c => !c.FitnessValue.HasValue))
+        if (chromosomes.Any(c => !c.FitnessValue.HasValue))
         {
             throw new ArgumentException("There are chromosomes with null fitness.");
         }
 
-        return PerformSelection(number, generation);
+        return PerformSelection(minSize, chromosomes);
     }
 
-    protected abstract IList<IChromosome<T>> PerformSelection(int number, Generation<T> generation);
+    protected abstract IList<IChromosome<T>> PerformSelection(int number, IList<IChromosome<T>> chromosomes);
 }

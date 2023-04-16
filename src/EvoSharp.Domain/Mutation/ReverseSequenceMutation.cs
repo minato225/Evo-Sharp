@@ -4,7 +4,7 @@ namespace EvoSharp.Domain.Mutation;
 
 public class ReverseSequenceMutation : MutationBase
 {
-    public ReverseSequenceMutation() => 
+    public ReverseSequenceMutation() =>
         IsOrdered = true;
 
     protected override void PerformMutate<T>(IChromosome<T> chromosome, float probability)

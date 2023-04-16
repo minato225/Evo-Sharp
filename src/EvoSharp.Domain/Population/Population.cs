@@ -48,7 +48,7 @@ public class Population<T> : IPopulation<T>
 
         CurrentGeneration = new Generation<T>(++GenerationsNumber, chromosomes);
         Generations.Add(CurrentGeneration);
-    }     
+    }
 
     public virtual void EndCurrentGeneration()
     {
@@ -62,6 +62,6 @@ public class Population<T> : IPopulation<T>
         }
     }
 
-    protected virtual void OnBestChromosomeChanged(EventArgs args) => 
+    protected virtual void OnBestChromosomeChanged(EventArgs args) =>
         BestChromosomeChanged?.Invoke(this, args);
 }

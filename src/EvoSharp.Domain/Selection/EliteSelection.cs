@@ -1,12 +1,12 @@
 using EvoSharp.Domain.Chromosome;
-using EvoSharp.Domain.Population;
 
 namespace EvoSharp.Domain.Selection;
 
-public sealed class EliteSelection<T> : SelectionBase<T>
+public class EliteSelection<T> : SelectionBase<T>
 {
-    readonly int _previousGenerationChromosomesNumber;
-    List<IChromosome<T>> _previousGenerationChromosomes;
+    private readonly int _previousGenerationChromosomesNumber;
+
+    private List<IChromosome<T>> _previousGenerationChromosomes;
 
     public EliteSelection(int previousGenerationChromosomesNumber)
         : base(2)
@@ -14,12 +14,12 @@ public sealed class EliteSelection<T> : SelectionBase<T>
         _previousGenerationChromosomesNumber = previousGenerationChromosomesNumber;
     }
 
-    protected override IList<IChromosome<T>> PerformSelection(int number, Generation<T> generation)
+    protected override IList<IChromosome<T>> PerformSelection(int number, IList<IChromosome<T>> chromosomes)
     {
-        if (generation.GenerationNumber == 1)
+        if (_previousGenerationChromosomesNumber == 0)
             _previousGenerationChromosomes = new List<IChromosome<T>>();
 
-        _previousGenerationChromosomes.AddRange(generation.Chromosomes);
+        _previousGenerationChromosomes.AddRange(chromosomes);
 
         var ordered = _previousGenerationChromosomes.OrderByDescending(c => c.FitnessValue);
         var result = ordered.Take(number).ToList();

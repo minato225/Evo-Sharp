@@ -145,7 +145,7 @@ public sealed class GeneticAlgorithm<T>
     }
 
     private IList<IChromosome<T>> Select() =>
-        Selection.Selection(Population.MinSize, Population.CurrentGeneration);
+        Selection.Selection(Population.MinSize, Population.CurrentGeneration.Chromosomes);
     private IList<IChromosome<T>> Cross(IList<IChromosome<T>> parents)
     {
         var rnd = new Random();

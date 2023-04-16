@@ -2,7 +2,7 @@
 
 public class BinaryChromosome : ChromosomeBase<bool>
 {
-    public BinaryChromosome(int length) : 
+    public BinaryChromosome(int length) :
         base(length, false, false)
     {
     }
@@ -11,7 +11,7 @@ public class BinaryChromosome : ChromosomeBase<bool>
     {
     }
 
-    public override IChromosome<bool> CreateNew() => 
+    public override IChromosome<bool> CreateNew() =>
         new BinaryChromosome(_length);
 
     public virtual void FlipGene(int index) =>

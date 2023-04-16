@@ -2,7 +2,7 @@
 
 public class FloatChromosome : ChromosomeBase<float>
 {
-    public FloatChromosome(int length, float minValue, float maxValue) : 
+    public FloatChromosome(int length, float minValue, float maxValue) :
         base(length, minValue, maxValue)
     {
     }

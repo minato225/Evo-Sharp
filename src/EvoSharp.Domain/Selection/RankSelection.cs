@@ -1,5 +1,4 @@
 ﻿using EvoSharp.Domain.Chromosome;
-using EvoSharp.Domain.Population;
 
 namespace EvoSharp.Domain.Selection;
 
@@ -44,9 +43,9 @@ public class RankSelection<T> : SelectionBase<T>
         }
     }
 
-    protected override IList<IChromosome<T>> PerformSelection(int number, Generation<T> generation)
+    protected override IList<IChromosome<T>> PerformSelection(int number, IList<IChromosome<T>> chromosomes)
     {
-        var chromosomes = generation.Chromosomes.OrderByDescending(c => c.FitnessValue).ToList();
+        chromosomes = chromosomes.OrderByDescending(c => c.FitnessValue).ToList();
         var rankWheel = new List<double>();
 
         CalculateCumulativeFitnessRank(chromosomes, rankWheel);
