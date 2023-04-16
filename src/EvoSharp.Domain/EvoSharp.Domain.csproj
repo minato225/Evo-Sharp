@@ -20,6 +20,8 @@ With this Genetic Algorithm Class library, you can easily incorporate genetic al
     <PackageReleaseNotes>See changes at https://github.com/minato225/Evo-Sharp</PackageReleaseNotes>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <AssemblyVersion>1.0.0.2</AssemblyVersion>
+    <FileVersion>1.0.0.2</FileVersion>
   </PropertyGroup>
 
   <ItemGroup>
