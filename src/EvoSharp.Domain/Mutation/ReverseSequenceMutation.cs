@@ -11,7 +11,7 @@ public class ReverseSequenceMutation : MutationBase
     {
         if (chromosome.Length < 3)
         {
-            throw new ArgumentException("A chromosome should have, at least, 3 genes. {0} has only {1} gene.");
+            throw new ArgumentException("A chromosome should have, at least, 3 genes.");
         }
 
         if (_random.NextSingle() > probability) return;

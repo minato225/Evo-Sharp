@@ -2,18 +2,17 @@
 
 public class FloatChromosome : ChromosomeBase<float>
 {
-    private readonly float _minValue;
-    private readonly float _maxValue;
-
-    public FloatChromosome(float minValue, float maxValue) : base(32)
+    public FloatChromosome(int length, float minValue, float maxValue) : 
+        base(length, minValue, maxValue)
     {
-        _minValue = minValue;
-        _maxValue = maxValue;
-        base.CreateGenes();
+    }
+
+    public FloatChromosome(float[] genes) : base(genes)
+    {
     }
 
     public override IChromosome<float> CreateNew() =>
-        new FloatChromosome(_minValue, _maxValue);
+        new FloatChromosome(_length, _minValue, _maxValue);
 
     public override float GenerateGene() =>
         RandomFloat(_minValue, _maxValue);

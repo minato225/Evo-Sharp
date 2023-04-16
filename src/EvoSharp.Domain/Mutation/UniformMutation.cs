@@ -11,15 +11,11 @@ public class UniformMutation : MutationBase
 
     protected override void PerformMutate<T>(IChromosome<T> chromosome, float probability)
     {
-        ArgumentNullException.ThrowIfNull(nameof(chromosome));
-
-        var genesLength = chromosome.Length;
-
         foreach (var geneIndex in _mutableGenesIndexes)
         {
-            if (geneIndex >= genesLength)
+            if (geneIndex >= chromosome.Length)
             {
-                throw new ArgumentNullException($"The chromosome has no gene on index {geneIndex}. The chromosome genes length is {genesLength}.");
+                throw new ArgumentOutOfRangeException($"The chromosome has no gene on index {geneIndex}. The chromosome genes length is {chromosome.Length}.");
             }
 
             if (_random.NextSingle() <= probability)

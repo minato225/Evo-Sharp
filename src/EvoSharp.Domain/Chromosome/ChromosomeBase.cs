@@ -1,17 +1,29 @@
+using System.Numerics;
+
 namespace EvoSharp.Domain.Chromosome;
 
 public abstract class ChromosomeBase<T> : IChromosome<T>
 {
     private T[] _genes;
     protected int _length;
+    protected readonly T _minValue = default;
+    protected readonly T _maxValue = default;
     protected readonly Random _random = new();
 
-    protected ChromosomeBase(int length)
+    public ChromosomeBase(int length, T minValue, T maxValue)
     {
         ValidateLength(length);
 
+        _minValue = minValue;
+        _maxValue = maxValue;
         _length = length;
-        _genes = new T[length];
+        _genes = CreateGenes();
+    }
+
+    public ChromosomeBase(T[] genes)
+    {
+        _length = genes.Length;
+        _genes = genes;
     }
 
     public T this[int i]
@@ -88,12 +100,14 @@ public abstract class ChromosomeBase<T> : IChromosome<T>
 
     public override int GetHashCode() => FitnessValue.GetHashCode();
 
-    protected virtual void CreateGene(int index) => this[index] = GenerateGene();
-
-    protected virtual void CreateGenes()
+    private T[] CreateGenes()
     {
+        var result = new T[_length];
+
         for (int i = 0; i < Length; i++)
-            CreateGene(i);
+            result[i] = GenerateGene();
+
+        return result;
     }
 
     private static void ValidateLength(int length)

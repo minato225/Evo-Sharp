@@ -9,7 +9,7 @@ public abstract class MutationBase : IMutation
 
     public void Mutate<T>(IChromosome<T> chromosome, float probability)
     {
-        ArgumentNullException.ThrowIfNull(nameof(chromosome));
+        ArgumentNullException.ThrowIfNull(chromosome, nameof(chromosome));
 
         PerformMutate(chromosome, probability);
     }

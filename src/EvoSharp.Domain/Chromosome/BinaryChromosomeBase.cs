@@ -2,9 +2,14 @@
 
 public class BinaryChromosome : ChromosomeBase<bool>
 {
-    protected BinaryChromosome(int length) :
-        base(length)
-    { }
+    public BinaryChromosome(int length) : 
+        base(length, false, false)
+    {
+    }
+
+    public BinaryChromosome(bool[] genes) : base(genes)
+    {
+    }
 
     public override IChromosome<bool> CreateNew() => 
         new BinaryChromosome(_length);
