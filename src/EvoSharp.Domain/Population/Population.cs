@@ -44,7 +44,7 @@ public class Population<T> : IPopulation<T>
 
     public virtual void CreateNewGeneration(IList<IChromosome<T>> chromosomes)
     {
-        ArgumentNullException.ThrowIfNull(nameof(chromosomes));
+        ArgumentNullException.ThrowIfNull(chromosomes, nameof(chromosomes));
 
         CurrentGeneration = new Generation<T>(++GenerationsNumber, chromosomes);
         Generations.Add(CurrentGeneration);

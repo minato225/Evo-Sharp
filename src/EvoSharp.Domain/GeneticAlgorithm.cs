@@ -28,11 +28,11 @@ public sealed class GeneticAlgorithm<T>
         ICrossover crossover,
         IMutation mutation)
     {
-        ArgumentNullException.ThrowIfNull(nameof(population));
-        ArgumentNullException.ThrowIfNull(nameof(fitness));
-        ArgumentNullException.ThrowIfNull(nameof(selection));
-        ArgumentNullException.ThrowIfNull(nameof(crossover));
-        ArgumentNullException.ThrowIfNull(nameof(mutation));
+        ArgumentNullException.ThrowIfNull(population, nameof(population));
+        ArgumentNullException.ThrowIfNull(fitness, nameof(fitness));
+        ArgumentNullException.ThrowIfNull(selection, nameof(selection));
+        ArgumentNullException.ThrowIfNull(crossover, nameof(crossover));
+        ArgumentNullException.ThrowIfNull(mutation, nameof(mutation));
 
         Population = population;
         Fitness = fitness;
@@ -73,14 +73,10 @@ public sealed class GeneticAlgorithm<T>
         TotalTime = _stopwatch.Elapsed;
 
         if (Population.GenerationsNumber == 0)
-        {
             throw new InvalidOperationException("Attempt to resume a genetic algorithm which was not yet started.");
-        }
 
         if (Termination.HasReached(this))
-        {
             throw new InvalidOperationException("Attempt to resume a genetic algorithm with a termination already reached. Please, specify a new termination or extend the current one.");
-        }
 
         if (EndCurrentGeneration()) return;
 
@@ -144,8 +140,11 @@ public sealed class GeneticAlgorithm<T>
         Population.CurrentGeneration.Chromosomes = Population.CurrentGeneration.Chromosomes.OrderByDescending(c => c.FitnessValue.Value).ToList();
     }
 
-    private IList<IChromosome<T>> Select() =>
-        Selection.Selection(Population.MinSize, Population.CurrentGeneration.Chromosomes);
+    private IList<IChromosome<T>> Select()
+    {
+        return Selection.Selection(Population.MinSize, Population.CurrentGeneration.Chromosomes);
+    }
+
     private IList<IChromosome<T>> Cross(IList<IChromosome<T>> parents)
     {
         var rnd = new Random();

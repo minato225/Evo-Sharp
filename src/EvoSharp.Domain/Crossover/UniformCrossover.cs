@@ -4,7 +4,7 @@ namespace EvoSharp.Domain.Crossover;
 
 public class UniformCrossover : CrossoverBase
 {
-    public UniformCrossover(float mixProbability) : base(2, 2) =>
+    public UniformCrossover(float mixProbability = .5f) : base(2, 2) =>
         Probability = mixProbability;
     public float Probability { get; set; }
 

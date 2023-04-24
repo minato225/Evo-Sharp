@@ -55,7 +55,7 @@ public abstract class ChromosomeBase<T> : IChromosome<T>
 
     public void ReplaceGenes(int startIndex, T[] genes)
     {
-        ArgumentNullException.ThrowIfNull(genes);
+        ArgumentNullException.ThrowIfNull(genes, nameof(genes));
 
         if (genes.Length == 0) return;
 

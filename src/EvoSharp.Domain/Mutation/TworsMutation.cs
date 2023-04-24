@@ -4,9 +4,6 @@ namespace EvoSharp.Domain.Mutation;
 
 public class TworsMutation : MutationBase
 {
-    public TworsMutation() =>
-        IsOrdered = true;
-
     protected override void PerformMutate<T>(IChromosome<T> chromosome, float probability)
     {
         if (_random.NextSingle() > probability) return;

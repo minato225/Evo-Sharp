@@ -13,7 +13,6 @@ public class TwoPointCrossover : CrossoverBase
 
         FirstSwapIndex = firstSwapIndex;
         SecondSwapIndex = secondSwapIndex;
-        MinLength = 3;
     }
 
     public int FirstSwapIndex { get; set; }

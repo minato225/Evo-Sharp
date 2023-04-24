@@ -4,31 +4,23 @@ namespace EvoSharp.Domain.Crossover;
 
 public abstract class CrossoverBase : ICrossover
 {
-    protected CrossoverBase(int parentCount, int childCount) : this(parentCount, childCount, 2) =>
-        (ParentCount, ChildCount) = (parentCount, childCount);
-    protected CrossoverBase(int parentCount, int childCount, int minLength) =>
-        (ParentCount, ChildCount, MinLength) = (parentCount, childCount, minLength);
+    protected CrossoverBase(int parentCount) : this(parentCount, 2) =>
+        ParentCount = parentCount;
+    protected CrossoverBase(int parentCount, int minLength) =>
+        (ParentCount, MinLength) = (parentCount, minLength);
 
-    public bool IsOrdered { get; protected set; }
     public int ParentCount { get; private set; }
-    public int ChildCount { get; private set; }
     public int MinLength { get; protected set; }
 
     public IList<IChromosome<T>> Cross<T>(IList<IChromosome<T>> parents)
     {
-        ArgumentNullException.ThrowIfNull(nameof(parents));
+        ArgumentNullException.ThrowIfNull(parents, nameof(parents));
 
         if (parents.Count != ParentCount)
-        {
             throw new ArgumentOutOfRangeException(nameof(parents), "The number of parents should be the same of ParentsNumber.");
-        }
 
-        var firstParent = parents[0];
-
-        if (firstParent.Length < MinLength)
-        {
-            throw new ArgumentNullException($"A chromosome should have, at least, {MinLength} genes.");
-        }
+        if (parents[0].Length < MinLength)
+            throw new ArgumentException($"A chromosome should have, at least, {MinLength} genes.");
 
         return PerformCross(parents);
     }

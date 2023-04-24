@@ -6,7 +6,7 @@ public abstract class TerminationBase : ITermination
 
     public bool HasReached<T>(GeneticAlgorithm<T> geneticAlgorithm)
     {
-        ArgumentNullException.ThrowIfNull(nameof(geneticAlgorithm));
+        ArgumentNullException.ThrowIfNull(geneticAlgorithm, nameof(geneticAlgorithm));
 
         _hasReached = PerformHasReached(geneticAlgorithm);
 
