@@ -22,7 +22,7 @@ With this Genetic Algorithm Class library, you can easily incorporate genetic al
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
     <AssemblyVersion>1.0.0.2</AssemblyVersion>
     <FileVersion>1.0.0.2</FileVersion>
-    <Version>1.0.2.2</Version>
+    <Version>1.0.3.1</Version>
   </PropertyGroup>
 
   <ItemGroup>
