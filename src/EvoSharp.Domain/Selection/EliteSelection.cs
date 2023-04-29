@@ -1,31 +1,34 @@
 using EvoSharp.Domain.Chromosome;
+using System.Collections.Generic;
+using System.Linq;
 
-namespace EvoSharp.Domain.Selection;
-
-public class EliteSelection<T> : SelectionBase<T>
+namespace EvoSharp.Domain.Selection
 {
-    private readonly int _previousGenerationChromosomesNumber;
-
-    private List<IChromosome<T>> _previousGenerationChromosomes;
-
-    public EliteSelection(int previousGenerationChromosomesNumber)
-        : base(2)
+    public class EliteSelection<T> : SelectionBase<T>
     {
-        _previousGenerationChromosomesNumber = previousGenerationChromosomesNumber;
-    }
+        private readonly int _previousGenerationChromosomesNumber;
 
-    protected override IList<IChromosome<T>> PerformSelection(int number, IList<IChromosome<T>> chromosomes)
-    {
-        if (_previousGenerationChromosomesNumber == 0)
-            _previousGenerationChromosomes = new List<IChromosome<T>>();
+        private List<IChromosome<T>> _previousGenerationChromosomes;
 
-        _previousGenerationChromosomes.AddRange(chromosomes);
+        public EliteSelection(int previousGenerationChromosomesNumber)
+            : base(2)
+        {
+            _previousGenerationChromosomesNumber = previousGenerationChromosomesNumber;
+        }
 
-        var ordered = _previousGenerationChromosomes.OrderByDescending(c => c.FitnessValue);
-        var result = ordered.Take(number).ToList();
+        protected override IList<IChromosome<T>> PerformSelection(int number, IList<IChromosome<T>> chromosomes)
+        {
+            if (_previousGenerationChromosomesNumber == 0)
+                _previousGenerationChromosomes = new List<IChromosome<T>>();
 
-        _previousGenerationChromosomes = result.Take(_previousGenerationChromosomesNumber).ToList();
+            _previousGenerationChromosomes.AddRange(chromosomes);
 
-        return result;
+            var ordered = _previousGenerationChromosomes.OrderByDescending(c => c.FitnessValue);
+            var result = ordered.Take(number).ToList();
+
+            _previousGenerationChromosomes = result.Take(_previousGenerationChromosomesNumber).ToList();
+
+            return result;
+        }
     }
 }

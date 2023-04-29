@@ -1,9 +1,12 @@
-namespace EvoSharp.Domain.Termination;
+using System;
 
-public class TimeEvolvingTermination : TerminationBase
+namespace EvoSharp.Domain.Termination
 {
-    public required TimeSpan MaxTime { get; set; }
+    public class TimeEvolvingTermination : TerminationBase
+    {
+        public TimeSpan MaxTime { get; set; }
 
-    protected override bool PerformHasReached<T>(GeneticAlgorithm<T> geneticAlgorithm) =>
-        geneticAlgorithm.TotalTime >= MaxTime;
+        protected override bool PerformHasReached<T>(GeneticAlgorithm<T> geneticAlgorithm) =>
+            geneticAlgorithm.TotalTime >= MaxTime;
+    }
 }

@@ -1,19 +1,22 @@
 ﻿using EvoSharp.Domain.Chromosome;
+using System;
+using System.Collections.Generic;
 
-namespace EvoSharp.Domain.Population;
-
-public interface IPopulation<T>
+namespace EvoSharp.Domain.Population
 {
-    event EventHandler BestChromosomeChanged;
+    public interface IPopulation<T>
+    {
+        event EventHandler BestChromosomeChanged;
 
-    IList<Generation<T>> Generations { get; }
-    Generation<T> CurrentGeneration { get; }
-    int GenerationsNumber { get; }
-    int MinSize { get; set; }
-    int MaxSize { get; set; }
-    IChromosome<T> BestChromosome { get; }
+        IList<Generation<T>> Generations { get; }
+        Generation<T> CurrentGeneration { get; }
+        int GenerationsNumber { get; }
+        int MinSize { get; set; }
+        int MaxSize { get; set; }
+        IChromosome<T> BestChromosome { get; }
 
-    void InitGeneration();
-    void CreateNewGeneration(IList<IChromosome<T>> chromosomes);
-    void EndCurrentGeneration();
+        void InitGeneration();
+        void CreateNewGeneration(IList<IChromosome<T>> chromosomes);
+        void EndCurrentGeneration();
+    }
 }

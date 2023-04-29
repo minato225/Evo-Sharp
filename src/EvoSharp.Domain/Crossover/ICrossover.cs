@@ -1,11 +1,13 @@
 using EvoSharp.Domain.Chromosome;
+using System.Collections.Generic;
 
-namespace EvoSharp.Domain.Crossover;
-
-public interface ICrossover
+namespace EvoSharp.Domain.Crossover
 {
-    int ParentCount { get; }
-    int MinLength { get; }
+    public interface ICrossover
+    {
+        int ParentCount { get; }
+        int MinLength { get; }
 
-    IList<IChromosome<T>> Cross<T>(IList<IChromosome<T>> parents);
+        IList<IChromosome<T>> Cross<T>(IList<IChromosome<T>> parents);
+    }
 }

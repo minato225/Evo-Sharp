@@ -1,14 +1,17 @@
-namespace EvoSharp.Domain.Chromosome;
+using System;
 
-public interface IChromosome<T> : IComparable<IChromosome<T>>
+namespace EvoSharp.Domain.Chromosome
 {
-    double? FitnessValue { get; set; }
-    int Length { get; }
-    T this[int index] { get; set; }
-    T[] Genes { get; }
+    public interface IChromosome<T> : IComparable<IChromosome<T>>
+    {
+        double? FitnessValue { get; set; }
+        int Length { get; }
+        T this[int index] { get; set; }
+        T[] Genes { get; }
 
-    T GenerateGene();
-    void ReplaceGenes(int startIndex, T[] genes);
-    IChromosome<T> CreateNew();
-    IChromosome<T> Clone();
+        T GenerateGene();
+        void ReplaceGenes(int startIndex, T[] genes);
+        IChromosome<T> CreateNew();
+        IChromosome<T> Clone();
+    }
 }

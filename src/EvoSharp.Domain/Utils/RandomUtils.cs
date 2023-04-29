@@ -1,28 +1,45 @@
-﻿namespace EvoSharp.Domain.Utils;
+﻿using System;
+using System.Linq;
 
-public class RandomUtils
+namespace EvoSharp.Domain.Utils
 {
-    public static int[] GetUniqueInts(int length, int min, int max)
+    public static class RandomUtils
     {
-        var random = new Random();
-        var diff = max - min;
-
-        if (diff < length)
+        public static int[] GetUniqueInts(int length, int min, int max)
         {
-            throw new ArgumentOutOfRangeException(nameof(length),
-                $"The length is {length}, but the possible unique values between {min} (inclusive) and {max} (exclusive) are {diff}.");
+            var random = new Random();
+            var diff = max - min;
+
+            if (diff < length)
+            {
+                throw new ArgumentOutOfRangeException(nameof(length),
+                    $"The length is {length}, but the possible unique values between {min} (inclusive) and {max} (exclusive) are {diff}.");
+            }
+
+            var orderedValues = Enumerable.Range(min, diff).ToList();
+            var ints = new int[length];
+
+            for (int i = 0; i < length; i++)
+            {
+                var removeIndex = random.Next(0, orderedValues.Count);
+                ints[i] = orderedValues[removeIndex];
+                orderedValues.RemoveAt(removeIndex);
+            }
+
+            return ints;
         }
 
-        var orderedValues = Enumerable.Range(min, diff).ToList();
-        var ints = new int[length];
-
-        for (int i = 0; i < length; i++)
+        public static float NextFloat(this Random rand, float minValue = 0.0f, float maxValue = 1.0f)
         {
-            var removeIndex = random.Next(0, orderedValues.Count);
-            ints[i] = orderedValues[removeIndex];
-            orderedValues.RemoveAt(removeIndex);
-        }
+            if (minValue >= maxValue)
+            {
+                throw new ArgumentException("minValue must be less than maxValue");
+            }
 
-        return ints;
+            double range = (double)maxValue - (double)minValue;
+            double scaled = rand.NextDouble() * range;
+            float shifted = (float)(scaled + minValue);
+            return shifted;
+        }
     }
 }

@@ -1,54 +1,59 @@
 using EvoSharp.Domain.Chromosome;
+using EvoSharp.Domain.Utils;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 
-namespace EvoSharp.Domain.Selection;
-
-public class RouletteWheelSelection<T> : SelectionBase<T>
+namespace EvoSharp.Domain.Selection
 {
-    public RouletteWheelSelection() : base(2)
+    public class RouletteWheelSelection<T> : SelectionBase<T>
     {
-    }
-
-    protected static IList<IChromosome<T>> SelectFromWheel(int number, IList<IChromosome<T>> chromosomes, IList<double> rouletteWheel, Func<double> getPointer)
-    {
-        var selected = new List<IChromosome<T>>();
-
-        for (int i = 0; i < number; i++)
+        public RouletteWheelSelection() : base(2)
         {
-            var chromosome = rouletteWheel
-                .Select((value, index) => new { Value = value, Index = index })
-                .FirstOrDefault(r => r.Value >= getPointer());
-
-            if (chromosome != null)
-                selected.Add(chromosomes[chromosome.Index].Clone());
         }
 
-        return selected;
-    }
-
-    /// <summary>
-    /// Calculates the cumulative percent.
-    /// </summary>
-    /// <param name="chromosomes">The chromosomes.</param>
-    /// <param name="rouletteWheel">The roulette wheel.</param>
-    protected static void CalculateCumulativePercentFitness(IList<IChromosome<T>> chromosomes, IList<double> rouletteWheel)
-    {
-        var sumFitness = chromosomes.Sum(c => c.FitnessValue.Value);
-
-        var cumulativePercent = 0.0;
-
-        for (int i = 0; i < chromosomes.Count; i++)
+        protected static IList<IChromosome<T>> SelectFromWheel(int number, IList<IChromosome<T>> chromosomes, IList<double> rouletteWheel, Func<double> getPointer)
         {
-            cumulativePercent += chromosomes[i].FitnessValue.Value / sumFitness;
-            rouletteWheel.Add(cumulativePercent);
+            var selected = new List<IChromosome<T>>();
+
+            for (int i = 0; i < number; i++)
+            {
+                var chromosome = rouletteWheel
+                    .Select((value, index) => new { Value = value, Index = index })
+                    .FirstOrDefault(r => r.Value >= getPointer());
+
+                if (chromosome != null)
+                    selected.Add(chromosomes[chromosome.Index].Clone());
+            }
+
+            return selected;
         }
-    }
 
-    protected override IList<IChromosome<T>> PerformSelection(int number, IList<IChromosome<T>> chromosomes)
-    {
-        var rouletteWheel = new List<double>();
+        /// <summary>
+        /// Calculates the cumulative percent.
+        /// </summary>
+        /// <param name="chromosomes">The chromosomes.</param>
+        /// <param name="rouletteWheel">The roulette wheel.</param>
+        protected static void CalculateCumulativePercentFitness(IList<IChromosome<T>> chromosomes, IList<double> rouletteWheel)
+        {
+            var sumFitness = chromosomes.Sum(c => c.FitnessValue.Value);
 
-        CalculateCumulativePercentFitness(chromosomes, rouletteWheel);
+            var cumulativePercent = 0.0;
 
-        return SelectFromWheel(number, chromosomes, rouletteWheel, () => _random.NextSingle());
+            for (int i = 0; i < chromosomes.Count; i++)
+            {
+                cumulativePercent += chromosomes[i].FitnessValue.Value / sumFitness;
+                rouletteWheel.Add(cumulativePercent);
+            }
+        }
+
+        protected override IList<IChromosome<T>> PerformSelection(int number, IList<IChromosome<T>> chromosomes)
+        {
+            var rouletteWheel = new List<double>();
+
+            CalculateCumulativePercentFitness(chromosomes, rouletteWheel);
+
+            return SelectFromWheel(number, chromosomes, rouletteWheel, () => _random.NextFloat());
+        }
     }
 }

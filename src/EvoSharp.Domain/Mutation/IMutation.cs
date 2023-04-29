@@ -1,8 +1,9 @@
 using EvoSharp.Domain.Chromosome;
 
-namespace EvoSharp.Domain.Mutation;
-
-public interface IMutation
+namespace EvoSharp.Domain.Mutation
 {
-    void Mutate<T>(IChromosome<T> chromosome, float probability);
+    public interface IMutation
+    {
+        void Mutate<T>(IChromosome<T> chromosome, float probability);
+    }
 }
